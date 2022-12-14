@@ -22,7 +22,7 @@ class SocialsSubState extends FlxSubState
 
 	var socialTxt:FlxText;
 
-	var socialsArray:Array<Data>;
+	var socialsArray:Array<DataSocials>;
 
 	#if mobile
 	var size:Int = 72;
@@ -44,8 +44,8 @@ class SocialsSubState extends FlxSubState
 		ls = FlxG.save.data.language;
 
 		socialsArray = [
-			new Data(LanguageHandler.socialsGitHubName[ls], LanguageHandler.socialsGitHubDesc[ls], 'github.com/ItzOldFlagDEV/shorohov-game'),
-			new Data(LanguageHandler.socialsVKName[ls], LanguageHandler.socialsVKDesc[ls], 'vk.com/shorohovgame')
+			new DataSocials(LanguageHandler.socialsGitHubName[ls], LanguageHandler.socialsGitHubDesc[ls], 'github.com/ItzOldFlagDEV/shorohov-game'),
+			new DataSocials(LanguageHandler.socialsVKName[ls], LanguageHandler.socialsVKDesc[ls], 'vk.com/shorohovgame')
 		];
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.height * 3, FlxG.width * 3, FlxColor.BLACK);
@@ -186,7 +186,7 @@ class SocialsSubState extends FlxSubState
 	}
 }
 
-class Data
+class DataSocials
 {
 	public var name:String;
 	public var whatDo:String;

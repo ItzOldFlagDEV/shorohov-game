@@ -9,7 +9,8 @@ class LanguageHandler
     public static var mainMenuPlay:Array<String>;
     public static var mainMenuCredits:Array<String>;
     public static var mainMenuEditor:Array<String>;
-    public static var mainVersion:Array<String>;
+    public static var mainMenuVersion:Array<String>;
+    public static var mainMenuSocials:Array<String>;
     // OPTIONS MENU
     public static var optionsFpsCap:Array<String>;
     public static var optionsLanguage:Array<String>;
@@ -40,7 +41,8 @@ class LanguageHandler
         mainMenuPlay = ['Play', 'Играть'];
         mainMenuCredits = ['Credits', 'Кредиты'];
         mainMenuEditor = ['Shorohov Editor', 'Редактор шорохова'];
-        mainVersion = ['Version: ', 'Версия: '];
+        mainMenuVersion = ['Version: ', 'Версия: '];
+        mainMenuSocials = ['Our socials', 'Наши соц. сети'];
         // Options localization
         optionsFpsCap = ['Max FPS', 'Максимальный FPS'];
         optionsLanguage = ['Language', 'Язык'];

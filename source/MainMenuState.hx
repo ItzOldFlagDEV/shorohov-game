@@ -17,6 +17,7 @@ class MainMenuState extends FlxState
     var creditsText:FlxText;
     var optionsText:FlxText;
     var shorohovText:FlxText;
+    var socialsText:FlxText;
 
     var bg:FlxSprite;
 
@@ -43,7 +44,7 @@ class MainMenuState extends FlxState
         bg.alpha = 0.75;
         add(bg);
 
-        versionText = new FlxText(0, 0, 0, LanguageHandler.mainVersion[ls] + version, Std.int(size / 2));
+        versionText = new FlxText(0, 0, 0, LanguageHandler.mainMenuVersion[ls] + version, Std.int(size / 2));
         versionText.font = Paths.fontTTF('font1');
         versionText.borderQuality = 1;
         versionText.borderSize = 1;
@@ -81,6 +82,15 @@ class MainMenuState extends FlxState
         optionsText.screenCenter(Y);
         add(optionsText);
 
+        socialsText = new FlxText(0, 0, 0, LanguageHandler.mainMenuSocials[ls], size);
+        socialsText.font = Paths.fontTTF('font1');
+        socialsText.borderQuality = 1;
+        socialsText.borderSize = 2;
+        socialsText.borderStyle = OUTLINE;
+        socialsText.borderColor = FlxColor.BLACK;
+        socialsText.screenCenter(Y);
+        add(socialsText);
+
         #if !mobile
         shorohovText = new FlxText(0, 0, 0, LanguageHandler.mainMenuEditor[ls], size);
         shorohovText.screenCenter(Y);
@@ -95,13 +105,15 @@ class MainMenuState extends FlxState
         playText.y = playText.height - 10;
         creditsText.y = playText.y + (playText.height + 5);
         optionsText.y = creditsText.y + (creditsText.height + 5);
+        socialsText.y = optionsText.y + (optionsText.height + 5);
 
         playText.x = 10;
         creditsText.x = 10;
         optionsText.x = 10;
+        socialsText.x = 10;
         #if !mobile
         shorohovText.x = 10;
-        shorohovText.y = optionsText.y + (optionsText.height + 5);
+        shorohovText.y = socialsText.y + (socialsText.height + 5);
         #end
     }
 
@@ -131,6 +143,10 @@ class MainMenuState extends FlxState
 		        DiscordClient.changePresence('Browsing in options menu', '');
 		        #end
                 FlxG.switchState(new OptionsMenuState());
+            }
+            else if (FlxG.mouse.overlaps(socialsText))
+            {
+                FlxG.switchState(new SocialsSubState());
             }
             #if !mobile
             else if (FlxG.mouse.overlaps(shorohovText))

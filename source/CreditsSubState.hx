@@ -22,7 +22,7 @@ class CreditsSubState extends FlxSubState
 
 	var creditTxt:FlxText;
 
-	var creditsArray:Array<Data>;
+	var creditsArray:Array<DataCredits>;
 
 	#if mobile
 	var size:Int = 72;
@@ -40,10 +40,10 @@ class CreditsSubState extends FlxSubState
 		ls = FlxG.save.data.language;
 
 		creditsArray = [
-			new Data('OldFlag', LanguageHandler.creditsOldFlag[ls], 'vk.com/oldflagg'),
-			new Data('Egor Shorohov', LanguageHandler.creditsEgor[ls], ''),
-			new Data('Maxpool', LanguageHandler.creditsMaxpool[ls], 'vk.com/lolkekchiburek228'),
-			new Data('Listan', LanguageHandler.creditsListan[ls], 'vk.com/1tsuk1')
+			new DataCredits('OldFlag', LanguageHandler.creditsOldFlag[ls], 'vk.com/oldflagg'),
+			new DataCredits('Egor Shorohov', LanguageHandler.creditsEgor[ls], ''),
+			new DataCredits('Maxpool', LanguageHandler.creditsMaxpool[ls], 'vk.com/lolkekchiburek228'),
+			new DataCredits('Listan', LanguageHandler.creditsListan[ls], 'vk.com/1tsuk1')
 		];
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.height * 3, FlxG.width * 3, FlxColor.BLACK);
@@ -184,7 +184,7 @@ class CreditsSubState extends FlxSubState
 	}
 }
 
-class Data
+class DataCredits
 {
 	public var name:String;
 	public var whatDo:String;
