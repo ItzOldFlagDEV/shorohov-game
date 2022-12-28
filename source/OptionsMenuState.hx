@@ -3,8 +3,10 @@ package;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.FlxState;
+import flixel.util.FlxColor;
+import DataHandler.GetZoom;
 
-class OptionsMenuState extends FlxState
+class OptionsMenuState extends State
 {
 	public var ls:Int = 0;
 
@@ -33,12 +35,20 @@ class OptionsMenuState extends FlxState
 
 		ls = FlxG.save.data.language;
 
-		optionsArray = [LanguageHandler.optionsFpsCap[ls], LanguageHandler.optionsLanguage[ls]];
-		languagesArray = [LanguageHandler.optionsEnglish[ls], LanguageHandler.optionsRussian[ls]];
+		optionsArray = [DataHandler.optionsFpsCap[ls], DataHandler.optionsLanguage[ls]];
+		languagesArray = [DataHandler.optionsEnglish[ls], DataHandler.optionsRussian[ls]];
 
-		optionsTxt = new FlxText(0, 0, 0, "", 32);
+		var bg:RandomBGSprite = new RandomBGSprite(true);
+        bg.screenCenter();
+        add(bg);
+
+		optionsTxt = new FlxText(0, 0, 0, "", Std.int(32 * GetZoom()));
 		optionsTxt.alignment = CENTER;
 		optionsTxt.font = Paths.fontTTF('font1');
+		optionsTxt.borderQuality = 1;
+        optionsTxt.borderSize = 2;
+        optionsTxt.borderStyle = OUTLINE;
+        optionsTxt.borderColor = FlxColor.BLACK;
 		add(optionsTxt);
 
 		for (i in 0...optionsArray.length)
@@ -173,9 +183,22 @@ class OptionsMenuState extends FlxState
 		{
 			if (curSelected == 0)
 			{
+				#if mobile
 				FlxG.save.data.framerate += 10;
-				if (FlxG.save.data.framerate > 160)
+				if (FlxG.save.data.framerate > 120)
 					FlxG.save.data.framerate = 60;
+				#else
+				if (FlxG.keys.pressed.SHIFT)
+					if (FlxG.save.data.framerate >= 900)
+						FlxG.save.data.framerate += 1000 - FlxG.save.data.framerate;
+					else
+						FlxG.save.data.framerate += 100;
+				else
+					FlxG.save.data.framerate += 10;
+
+				if (FlxG.save.data.framerate > 1000)
+					FlxG.save.data.framerate = 60;
+				#end
 
 				FlxG.drawFramerate = FlxG.save.data.framerate;
 				FlxG.updateFramerate = FlxG.save.data.framerate;

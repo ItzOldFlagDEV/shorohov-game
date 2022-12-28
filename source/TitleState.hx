@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.text.FlxText;
@@ -11,7 +12,7 @@ import Discord.DiscordClient;
 import sys.thread.Thread;
 #end
 
-class TitleState extends FlxState
+class TitleState extends State
 {
     var russianFlag:FlxSprite;
     var usaFlag:FlxSprite;
@@ -26,16 +27,17 @@ class TitleState extends FlxState
 
     override public function create() 
     {
-        LanguageHandler.loadData(); // This func loads languages
+        DataHandler.loadTranslate(); // This func loads languages
 
         #if !mobile
         FlxG.mouse.visible = true;
 		FlxG.mouse.useSystemCursor = true;
+        FlxG.autoPause = false;
         #end
 
         #if desktop
         DiscordClient.initialize();
-		DiscordClient.changePresence('Looking title', '');
+		DiscordClient.changePresence(DataHandler.discordTitle[FlxG.save.data.language], '');
 		#end
 
         if (!FlxG.save.data.alreadySelectedLanguage)
@@ -52,7 +54,7 @@ class TitleState extends FlxState
             usaFlag.x = FlxG.width - usaFlag.width * 1.5;
             russianFlag.x = russianFlag.width / 1.5;
 
-            textLanguage = new FlxText(0, 0, 0, '', 64);
+            textLanguage = new FlxText(0, 0, FlxG.width - 96, '', 64);
             textLanguage.text = 'Select language // Выбери язык';
             textLanguage.font = Paths.fontTTF('font1');
             textLanguage.screenCenter(X);
@@ -77,12 +79,21 @@ class TitleState extends FlxState
             remove(usaFlag);
             remove(textLanguage);
         }
-        shitText = new FlxText(0, 0, 0, '', 64);
+
+        var bg:RandomBGSprite = new RandomBGSprite(true);
+        bg.screenCenter();
+        add(bg);
+
+        shitText = new FlxText(0, 0, FlxG.width - 96, '', 64);
         shitText.alignment = CENTER;
 		shitText.font = Paths.fontTTF('font1');
+        shitText.borderQuality = 2;
+        shitText.borderSize = 4;
+        shitText.borderStyle = OUTLINE;
+        shitText.borderColor = FlxColor.BLACK;
         add(shitText);
 
-        shitText.text = LanguageHandler.titlestatePart1[FlxG.save.data.language];
+        shitText.text = DataHandler.titlestatePart1[FlxG.save.data.language];
         shitText.screenCenter();
 
         new FlxTimer().start(2.6, function(tmr:FlxTimer) 
@@ -90,11 +101,11 @@ class TitleState extends FlxState
             FlxTween.tween(shitText, {alpha: 0}, 0.4);
             new FlxTimer().start(0.6, function(tmr:FlxTimer) 
             {
-                shitText.text = LanguageHandler.titlestatePart2[FlxG.save.data.language];
+                shitText.text = DataHandler.titlestatePart2[FlxG.save.data.language];
                 shitText.screenCenter();
                 new FlxTimer().start(1.2, function(tmr:FlxTimer) 
                 {
-                    shitText.text = LanguageHandler.titlestatePart2[FlxG.save.data.language];
+                    shitText.text = DataHandler.titlestatePart2[FlxG.save.data.language];
                     shitText.screenCenter();
                     FlxTween.tween(shitText, {alpha: 1}, 0.4);
                     new FlxTimer().start(2.1, function(tmr:FlxTimer) 
@@ -104,9 +115,13 @@ class TitleState extends FlxState
                         new FlxTimer().start(0.5, function(tmr:FlxTimer) 
                         {
                             remove(shitText);
-                            shitText.text = LanguageHandler.titlestatePart3[FlxG.save.data.language];
+                            shitText.text = DataHandler.titlestatePart3[FlxG.save.data.language];
                             shitText.size = 32;
                             shitText.screenCenter();
+                            shitText.borderQuality = 1;
+                            shitText.borderSize = 2;
+                            shitText.borderStyle = OUTLINE;
+                            shitText.borderColor = FlxColor.BLACK;
                             add(shitText);
 
                             FlxTween.tween(shitText, {alpha: 1}, 0.4);

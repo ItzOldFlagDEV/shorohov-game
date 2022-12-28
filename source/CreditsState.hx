@@ -1,17 +1,13 @@
 package;
 
+import flixel.FlxState;
 import flixel.text.FlxText;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
-#if desktop
-import Discord.DiscordClient;
-import sys.thread.Thread;
-#end
+import DataHandler.GetZoom;
 
-class CreditsSubState extends FlxSubState
+class CreditsState extends State
 {
 	public var ls:Int = 0;
 
@@ -40,20 +36,25 @@ class CreditsSubState extends FlxSubState
 		ls = FlxG.save.data.language;
 
 		creditsArray = [
-			new DataCredits('OldFlag', LanguageHandler.creditsOldFlag[ls], 'vk.com/oldflagg'),
-			new DataCredits('Egor Shorohov', LanguageHandler.creditsEgor[ls], ''),
-			new DataCredits('Maxpool', LanguageHandler.creditsMaxpool[ls], 'vk.com/lolkekchiburek228'),
-			new DataCredits('Listan', LanguageHandler.creditsListan[ls], 'vk.com/1tsuk1')
+			new DataCredits('OldFlag', DataHandler.creditsOldFlag[ls], 'vk.com/oldflagg'),
+			new DataCredits('Egor Shorohov', DataHandler.creditsEgor[ls], ''),
+			new DataCredits('Maxpool', DataHandler.creditsMaxpool[ls], 'vk.com/lolkekchiburek228'),
+			new DataCredits('Listan', DataHandler.creditsListan[ls], 'vk.com/1tsuk1'),
+			// new DataCredits('Fox8377', DataHandler.creditsFox[ls], 'vk.com/markin781'),
+			new DataCredits('CEO', DataHandler.creditsEvan[ls], 'vk.com/go4hst')
 		];
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.height * 3, FlxG.width * 3, FlxColor.BLACK);
-		bg.alpha = 0.85;
-		bg.screenCenter();
-		add(bg);
+		var bg:RandomBGSprite = new RandomBGSprite(true);
+        bg.screenCenter();
+        add(bg);
 
-		creditTxt = new FlxText(0, 0, 0, "", 32);
+		creditTxt = new FlxText(0, 0, FlxG.width - 128, "", Std.int(32 * GetZoom()));
 		creditTxt.alignment = CENTER;
 		creditTxt.font = Paths.fontTTF('font1');
+		creditTxt.borderQuality = 1;
+        creditTxt.borderSize = 2;
+        creditTxt.borderStyle = OUTLINE;
+        creditTxt.borderColor = FlxColor.BLACK;
 		add(creditTxt);
 
 		for (i in 0...creditsArray.length)
@@ -176,10 +177,7 @@ class CreditsSubState extends FlxSubState
 
 		if (FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.mouse.overlaps(backButton) && FlxG.mouse.justPressed #end)
 		{
-			#if desktop
-			DiscordClient.changePresence('Browsing in menu', '');
-			#end
-			close();
+			FlxG.switchState(new MainMenuState());
 		}
 	}
 }

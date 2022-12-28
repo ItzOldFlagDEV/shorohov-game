@@ -59,7 +59,7 @@ class ShorohovPlayer extends FlxSprite
                 }
 
                 animation.play(animsArray[0]);
-                scale.set(2, 2);
+                scale.set(1.5, 1.5);
             case 'kaneki':
                 loadGraphic(Paths.shorohovImages('kaneki'), true, 300, 300);
 
@@ -71,7 +71,7 @@ class ShorohovPlayer extends FlxSprite
                 }
 
                 animation.play(animsArray[0]);
-                scale.set(2, 2);
+                scale.set(1.5, 1.5);
             case 'mexico':
                 loadGraphic(Paths.shorohovImages('mexico'), true, 300, 300);
 
@@ -83,7 +83,7 @@ class ShorohovPlayer extends FlxSprite
                 }
 
                 animation.play(animsArray[0]);
-                scale.set(2, 2);
+                scale.set(1.5, 1.5);
             case 'naruto':
                 loadGraphic(Paths.shorohovImages('naruto'), true, 300, 300);
 
@@ -95,7 +95,7 @@ class ShorohovPlayer extends FlxSprite
                 }
 
                 animation.play(animsArray[0]);
-                scale.set(2, 2);
+                scale.set(1.5, 1.5);
             case 'zabivnoy':
                 loadGraphic(Paths.shorohovImages('zabivnoy'), true, 300, 300);
 
@@ -107,7 +107,7 @@ class ShorohovPlayer extends FlxSprite
                 }
 
                 animation.play(animsArray[0]);
-                scale.set(2, 2);
+                scale.set(1.5, 1.5);
             case 'ricardo':
                 loadGraphic(Paths.shorohovImages('ricardo'), true, 300, 300);
 
@@ -119,7 +119,7 @@ class ShorohovPlayer extends FlxSprite
                 }
 
                 animation.play(animsArray[0]);
-                scale.set(2, 2);
+                scale.set(1.5, 1.5);
             case 'grisha':
                 loadGraphic(Paths.shorohovImages('grisha'), true, 300, 300);
 
@@ -131,8 +131,140 @@ class ShorohovPlayer extends FlxSprite
                 }
 
                 animation.play(animsArray[0]);
-                scale.set(2, 2);
+                scale.set(1.5, 1.5);
+            case 'zloy':
+                loadGraphic(Paths.shorohovImages('zloy'), true, 300, 300);
 
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'skala':
+                loadGraphic(Paths.shorohovImages('skala'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'noviy_god':
+                loadGraphic(Paths.shorohovImages('noviy_god'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'king':
+                loadGraphic(Paths.shorohovImages('king'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'demon':
+                loadGraphic(Paths.shorohovImages('demon'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'skywalker_lmao':
+                loadGraphic(Paths.shorohovImages('skywalker_lmao'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'cop':
+                loadGraphic(Paths.shorohovImages('cop'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'old_shoroh':
+                loadGraphic(Paths.shorohovImages('old_shoroh'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'strong':
+                loadGraphic(Paths.shorohovImages('strong'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'killer':
+                loadGraphic(Paths.shorohovImages('killer'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            case 'anime':
+                loadGraphic(Paths.shorohovImages('anime'), true, 300, 300);
+
+                animsArray = ["Normal", "Crying"];
+
+                for (i in 0...animsArray.length)
+                {
+                    animation.add(animsArray[i], [i], 1, false);
+                }
+
+                animation.play(animsArray[0]);
+                scale.set(1.5, 1.5);
+            /*
             #if desktop
             default:
                 var toParse:String = File.getContent(Paths.shorohovJson(type));
@@ -157,10 +289,7 @@ class ShorohovPlayer extends FlxSprite
                 animation.play(animsArray[0]);
                 scale.set(scaleX, scaleY);
             #end
-
-            var resize:Float = (1280 / FlxG.width);
-
-            scale.set(scale.x * resize, scale.y * resize);
+            */
         }
     }
 }

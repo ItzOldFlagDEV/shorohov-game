@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="brawlersHelpersSheet.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="brat_serega" x="0" y="0" width="298" height="300"/>
+	<SubTexture name="cupa_cups" x="298" y="0" width="298" height="300"/>
+	<SubTexture name="delovoy" x="596" y="0" width="298" height="300"/>
+	<SubTexture name="kaif" x="894" y="0" width="300" height="300"/>
+	<SubTexture name="nikoglai" x="0" y="300" width="298" height="300"/>
+	<SubTexture name="roma_ahuel" x="298" y="300" width="298" height="300"/>
+	<SubTexture name="stalin" x="596" y="300" width="298" height="300"/>
+	<SubTexture name="zloy_negr" x="894" y="300" width="300" height="300"/>
+</TextureAtlas>

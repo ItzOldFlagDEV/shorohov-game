@@ -23,7 +23,7 @@ import lime.utils.Assets;
 
 using StringTools;
 
-class EditorState extends FlxState
+class EditorState extends State
 {
 	var UI_box:FlxUITabMenu;
 

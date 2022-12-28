@@ -1,5 +1,7 @@
 package;
 
+import flixel.graphics.frames.FlxAtlasFrames;
+
 class Paths
 {
     public static function images(key:String)
@@ -17,6 +19,18 @@ class Paths
     public static function bgImages(key:String)
     {
         var pathGet = 'assets/images/bgs/' + key + '.png';
+        return(pathGet);
+    }
+
+    public static function storeImages(key:String)
+    {
+        var pathGet = 'assets/images/store/' + key + '.png';
+        return(pathGet);
+    }
+
+    public static function menuBgImages(key:String)
+    {
+        var pathGet = 'assets/images/menu_bgs/' + key + '.png';
         return(pathGet);
     }
 
@@ -47,6 +61,13 @@ class Paths
     public static function bgJson(key:String)
     {
         var pathGet = 'assets/data/bgs/' + key + '.json';
+        return(pathGet);
+    }
+
+    public static function sprites(key:String)
+    {
+        var path = 'assets/images/sprites/' + key;
+        var pathGet = FlxAtlasFrames.fromSparrow('$key.png', '$key.xml');
         return(pathGet);
     }
 

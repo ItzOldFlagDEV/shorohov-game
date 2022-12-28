@@ -1,17 +1,13 @@
 package;
 
+import flixel.FlxState;
 import flixel.text.FlxText;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
-#if desktop
-import Discord.DiscordClient;
-import sys.thread.Thread;
-#end
+import DataHandler.GetZoom;
 
-class SocialsSubState extends FlxSubState
+class SocialsState extends State
 {
 	public var ls:Int = 0;
 
@@ -37,25 +33,24 @@ class SocialsSubState extends FlxSubState
 	{
 		super();
 
-		#if desktop
-		DiscordClient.changePresence('Checking our socials', '');
-		#end
-
 		ls = FlxG.save.data.language;
 
 		socialsArray = [
-			new DataSocials(LanguageHandler.socialsGitHubName[ls], LanguageHandler.socialsGitHubDesc[ls], 'github.com/ItzOldFlagDEV/shorohov-game'),
-			new DataSocials(LanguageHandler.socialsVKName[ls], LanguageHandler.socialsVKDesc[ls], 'vk.com/shorohovgame')
+			new DataSocials(DataHandler.socialsGitHubName[ls], DataHandler.socialsGitHubDesc[ls], 'github.com/ItzOldFlagDEV/shorohov-game'),
+			new DataSocials(DataHandler.socialsVKName[ls], DataHandler.socialsVKDesc[ls], 'vk.com/shorohovgame')
 		];
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.height * 3, FlxG.width * 3, FlxColor.BLACK);
-		bg.alpha = 0.85;
-		bg.screenCenter();
-		add(bg);
+		var bg:RandomBGSprite = new RandomBGSprite(true);
+        bg.screenCenter();
+        add(bg);
 
-		socialTxt = new FlxText(0, 0, 0, "", 32);
+		socialTxt = new FlxText(0, 0, 0, "", Std.int(32 * GetZoom()));
 		socialTxt.alignment = CENTER;
 		socialTxt.font = Paths.fontTTF('font1');
+		socialTxt.borderQuality = 1;
+        socialTxt.borderSize = 2;
+        socialTxt.borderStyle = OUTLINE;
+        socialTxt.borderColor = FlxColor.BLACK;
 		add(socialTxt);
 
 		for (i in 0...socialsArray.length)
@@ -178,10 +173,7 @@ class SocialsSubState extends FlxSubState
 
 		if (FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.mouse.overlaps(backButton) && FlxG.mouse.justPressed #end)
 		{
-			#if desktop
-			DiscordClient.changePresence('Browsing in menu', '');
-			#end
-			close();
+			FlxG.switchState(new MainMenuState());
 		}
 	}
 }

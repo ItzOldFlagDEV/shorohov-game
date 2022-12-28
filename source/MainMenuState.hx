@@ -6,45 +6,48 @@ import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.FlxState;
+import DataHandler.GetZoom;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
 #end
 
-class MainMenuState extends FlxState
+class MainMenuState extends State
 {
+    var ls:Int;
+
+    var storyText:FlxText;
     var playText:FlxText;
     var creditsText:FlxText;
     var optionsText:FlxText;
     var shorohovText:FlxText;
     var socialsText:FlxText;
+    var storeText:FlxText;
 
     var bg:FlxSprite;
 
-    var size:Int = 72;
+    var size:Int = Std.int(72 * GetZoom());
 
-    public static var version:String ='0.1';
+    public static var version:String ='0.2';
     var versionText:FlxText;
+    var snow:FlxSprite;
+
+    var showSnow:Bool = true;
 
     override public function create()
     {
-        var ls:Int = FlxG.save.data.language;
+        ls = FlxG.save.data.language;
 
         #if desktop
-		DiscordClient.changePresence('Browsing in menu', '');
+		DiscordClient.changePresence(DataHandler.discordMenu[ls], '');
 		#end
-        
-        if (FlxG.save.data.coin == null)
-			FlxG.save.data.coin = 0;
-        
-        super.create();
 
         bg = new FlxBackdrop('assets/images/bgClown.png', 25, 25, true, true);
         bg.scale.set(0.5, 0.5);
         bg.alpha = 0.75;
         add(bg);
 
-        versionText = new FlxText(0, 0, 0, LanguageHandler.mainMenuVersion[ls] + version, Std.int(size / 2));
+        versionText = new FlxText(0, 0, 0, DataHandler.mainMenuVersion[ls] + version, Std.int(size / 2));
         versionText.font = Paths.fontTTF('font1');
         versionText.borderQuality = 1;
         versionText.borderSize = 1;
@@ -55,16 +58,25 @@ class MainMenuState extends FlxState
         versionText.x = 5;
         versionText.y = FlxG.height - versionText.height + 5;
 
-        playText = new FlxText(0, 0, 0, LanguageHandler.mainMenuPlay[ls], size);
+        storyText = new FlxText(0, 0, 0, DataHandler.mainMenuStoryPlay[ls], size);
+        storyText.screenCenter(Y);
+        storyText.font = Paths.fontTTF('font1');
+        storyText.borderQuality = 1;
+        storyText.borderSize = 2;
+        storyText.borderStyle = OUTLINE;
+        storyText.borderColor = FlxColor.BLACK;
+        add(storyText);
+
+        playText = new FlxText(0, 0, 0, DataHandler.mainMenuPlay[ls], size);
         playText.screenCenter(Y);
         playText.font = Paths.fontTTF('font1');
         playText.borderQuality = 1;
         playText.borderSize = 2;
         playText.borderStyle = OUTLINE;
         playText.borderColor = FlxColor.BLACK;
-        add(playText);
+        // add(playText);
 
-        creditsText = new FlxText(0, 0, 0, LanguageHandler.mainMenuCredits[ls], size);
+        creditsText = new FlxText(0, 0, 0, DataHandler.mainMenuCredits[ls], size);
         creditsText.screenCenter(Y);
         creditsText.font = Paths.fontTTF('font1');
         creditsText.borderQuality = 1;
@@ -73,7 +85,7 @@ class MainMenuState extends FlxState
         creditsText.borderColor = FlxColor.BLACK;
         add(creditsText);
 
-        optionsText = new FlxText(0, 0, 0, LanguageHandler.mainMenuOptions[ls], size);
+        optionsText = new FlxText(0, 0, 0, DataHandler.mainMenuOptions[ls], size);
         optionsText.font = Paths.fontTTF('font1');
         optionsText.borderQuality = 1;
         optionsText.borderSize = 2;
@@ -82,7 +94,7 @@ class MainMenuState extends FlxState
         optionsText.screenCenter(Y);
         add(optionsText);
 
-        socialsText = new FlxText(0, 0, 0, LanguageHandler.mainMenuSocials[ls], size);
+        socialsText = new FlxText(0, 0, 0, DataHandler.mainMenuSocials[ls], size);
         socialsText.font = Paths.fontTTF('font1');
         socialsText.borderQuality = 1;
         socialsText.borderSize = 2;
@@ -91,8 +103,16 @@ class MainMenuState extends FlxState
         socialsText.screenCenter(Y);
         add(socialsText);
 
+        storeText = new FlxText(0, 0, 0, DataHandler.mainMenuStore[ls], size);
+        storeText.font = Paths.fontTTF('font1');
+        storeText.borderQuality = 1;
+        storeText.borderSize = 2;
+        storeText.borderStyle = OUTLINE;
+        storeText.borderColor = FlxColor.BLACK;
+        add(storeText);
+
         #if !mobile
-        shorohovText = new FlxText(0, 0, 0, LanguageHandler.mainMenuEditor[ls], size);
+        shorohovText = new FlxText(0, 0, 0, DataHandler.mainMenuEditor[ls], size);
         shorohovText.screenCenter(Y);
         shorohovText.font = Paths.fontTTF('font1');
         shorohovText.borderQuality = 1;
@@ -102,19 +122,25 @@ class MainMenuState extends FlxState
         add(shorohovText);
         #end
 
-        playText.y = playText.height - 10;
-        creditsText.y = playText.y + (playText.height + 5);
+        storyText.y = storyText.height - 10;
+        // playText.y = storyText.y + (storyText.height + 5);
+        creditsText.y = storyText.y + (storyText.height + 5);
         optionsText.y = creditsText.y + (creditsText.height + 5);
         socialsText.y = optionsText.y + (optionsText.height + 5);
+        storeText.y = socialsText.y + (socialsText.height + 5);
 
-        playText.x = 10;
+        storyText.x = 10;
         creditsText.x = 10;
         optionsText.x = 10;
         socialsText.x = 10;
+        storeText.x = 10;
+        // playText.x = 10;
         #if !mobile
         shorohovText.x = 10;
-        shorohovText.y = socialsText.y + (socialsText.height + 5);
+        shorohovText.y = storeText.y + (storeText.height + 5);
         #end
+
+        super.create();
     }
 
     override public function update(elapsed:Float)
@@ -126,27 +152,41 @@ class MainMenuState extends FlxState
 
         if (FlxG.mouse.justPressed)
         {
-            if (FlxG.mouse.overlaps(playText))
+            if (FlxG.mouse.overlaps(storyText))
             {
-                FlxG.switchState(new PrePlayState());
+                FlxG.switchState(new StoryState());
             }
             else if (FlxG.mouse.overlaps(creditsText))
             {
                 #if desktop
-		        DiscordClient.changePresence('Watching credits', '');
+		        DiscordClient.changePresence(DataHandler.discordCredits[ls], '');
 		        #end
-                openSubState(new CreditsSubState());
+                FlxG.switchState(new CreditsState());
             }
             else if (FlxG.mouse.overlaps(optionsText))
             {
                 #if desktop
-		        DiscordClient.changePresence('Browsing in options menu', '');
+		        DiscordClient.changePresence(DataHandler.discordOptions[ls], '');
 		        #end
                 FlxG.switchState(new OptionsMenuState());
             }
             else if (FlxG.mouse.overlaps(socialsText))
             {
-                FlxG.switchState(new SocialsSubState());
+                #if desktop
+		        DiscordClient.changePresence(DataHandler.discordSocials[ls], '');
+		        #end
+                FlxG.switchState(new SocialsState());
+            }
+            else if (FlxG.mouse.overlaps(storeText))
+            {
+                #if desktop
+		        DiscordClient.changePresence(DataHandler.discordStore[ls], '');
+		        #end
+                FlxG.switchState(new StoreState());
+            }
+            else if (FlxG.mouse.overlaps(playText))
+            {
+                FlxG.switchState(new PlayState());
             }
             #if !mobile
             else if (FlxG.mouse.overlaps(shorohovText))

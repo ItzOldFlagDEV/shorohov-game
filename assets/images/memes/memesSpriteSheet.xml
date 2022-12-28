@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="memesSpriteSheet.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="billy" x="0" y="0" width="356" height="355"/>
+	<SubTexture name="ded" x="0" y="355" width="739" height="736"/>
+	<SubTexture name="eto pizdec" x="739" y="355" width="216" height="194"/>
+	<SubTexture name="jostkiy fail" x="0" y="1091" width="220" height="218"/>
+	<SubTexture name="negr" x="220" y="1091" width="298" height="300"/>
+	<SubTexture name="negr artem" x="518" y="1091" width="300" height="300"/>
+	<SubTexture name="obezyana bezmamnaya" x="818" y="1091" width="197" height="256"/>
+	<SubTexture name="puppet negr" x="0" y="1391" width="622" height="738"/>
+</TextureAtlas>

@@ -14,8 +14,9 @@ import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.FlxState;
+import DataHandler.GetZoom;
 
-class PlayState extends FlxState
+class PlayState extends State
 {
 	// OBJS VARS
 	var shorohov:ShorohovPlayer;
@@ -32,8 +33,11 @@ class PlayState extends FlxState
 	public static var curBg:String;
 	public static var curLevel:String;
 
+	var shorohovSizes:Array<Float> = [];
+	var shorohovSize:Float;
+
 	// PLAYERS PREFS
-	var damageBoost:Int = 1;
+	var damageBoost:Int = FlxG.save.data.damageBoosterLvl;
 	#if mobile
 	// MOBILE
 	var size:Int = 72;
@@ -43,9 +47,29 @@ class PlayState extends FlxState
 	// OTHER
 	public var ls:Int = 0;
 
-	public function new(level:String)
+	public function new(?level:String = null)
 	{
-		LevelData.load(level);
+		if (level != null)
+			LevelData.load(level);
+		else
+		{
+			var bgs:Array<String> = ['default', 'tokyo_ghoul', 'naruto'];
+			var shorohovs:Array<String> = ['default', 'kaneki', 'naruto'];
+
+			var randomCoins:Array<Int> = [Std.int((FlxG.random.int(100, 120) * (FlxG.save.data.totalPlayedLevels * 1.5))), Std.int((FlxG.random.int(300, 330) * (FlxG.save.data.totalPlayedLevels * 1.75)))];
+			var randomShorohov:String = shorohovs[FlxG.random.int(FlxG.random.int(0, shorohovs.length - 1))];
+			var randomHP:Int = Std.int(FlxG.random.int(100, 150) * (FlxG.save.data.totalPlayedLevels * 1.25));
+			var randomBG:String = bgs[FlxG.random.int(FlxG.random.int(0, bgs.length - 1))];
+	
+			coinMin = randomCoins[0];
+			coinMax = randomCoins[1];
+			curShorohov = randomShorohov;
+			health = randomHP;
+			curLevel = 'generated';
+			curBg = randomBG;
+
+			trace('\n  >> Generated: \n  >> MinCoins: $coinMin\n  >> MaxCoins: $coinMax\n  >> Shorohov: $curShorohov\n  >> Health: $health\n  >> CurLevel: $curLevel\n  >> CurBg: $curBg');
+		}
 		ls = FlxG.save.data.language;
 
 		super();
@@ -57,24 +81,27 @@ class PlayState extends FlxState
 
 		shorohov = new ShorohovPlayer(0, 0, curShorohov);
 		shorohov.screenCenter();
+		shorohov.scale.set(GetZoom() * 1.5, GetZoom() * 1.5);
 		add(shorohov);
 
-		coinTxt = new FlxText(0, FlxG.height - 38, 0, LanguageHandler.playstateCoins[ls] + FlxG.save.data.coin, 32);
+		coinTxt = new FlxText(0, 0, 0, DataHandler.playstateCoins[ls] + FlxG.save.data.coin, Std.int(32 * GetZoom()));
 		coinTxt.screenCenter(X);
 		coinTxt.font = Paths.fontTTF('font1');
 		coinTxt.borderQuality = 1;
         coinTxt.borderSize = 2;
         coinTxt.borderStyle = OUTLINE;
         coinTxt.borderColor = FlxColor.BLACK;
+		coinTxt.y = FlxG.height - (6 + coinTxt.size);
 		add(coinTxt);
 
-		hpTxt = new FlxText(0, 0, 0, LanguageHandler.playstateHealthLeft[ls] + health, 32);
+		hpTxt = new FlxText(0, 0, 0, DataHandler.playstateHealthLeft[ls] + health, Std.int(32 * GetZoom()));
 		hpTxt.screenCenter(X);
 		hpTxt.font = Paths.fontTTF('font1');
 		hpTxt.borderQuality = 1;
         hpTxt.borderSize = 2;
         hpTxt.borderStyle = OUTLINE;
         hpTxt.borderColor = FlxColor.BLACK;
+		hpTxt.y = 6;
 		add(hpTxt);
 
 		#if mobile
@@ -88,7 +115,7 @@ class PlayState extends FlxState
 		#end
 
 		#if desktop
-		DiscordClient.changePresence('Playing: ${curLevel}', 'Health left: ${health}');
+		DiscordClient.changePresence('${DataHandler.discordPlayStatePart1[ls]}: ${curLevel}', '${DataHandler.discordPlayStatePart2[ls]} ${health}');
 		#end
 	}
 
@@ -106,13 +133,13 @@ class PlayState extends FlxState
 			if (FlxG.mouse.justPressed)
 			{
 				health -= 1 * damageBoost;
-				hpTxt.text = LanguageHandler.playstateHealthLeft[ls] + health;
+				hpTxt.text = DataHandler.playstateHealthLeft[ls] + health;
 				#if desktop
-				DiscordClient.changePresence('Playing: ${curLevel}', 'Health left: ${health}');
+				DiscordClient.changePresence('${DataHandler.discordPlayStatePart1[ls]}: ${curLevel}', '${DataHandler.discordPlayStatePart2[ls]} ${health}');
 				#end
 
-				FlxG.save.data.coin += 1;
-				coinTxt.text = LanguageHandler.playstateCoins[ls] + FlxG.save.data.coin;
+				FlxG.save.data.coin += (1 * FlxG.save.data.coinsBoosterLvl);
+				coinTxt.text = DataHandler.playstateCoins[ls] + FlxG.save.data.coin;
 				coinTxt.screenCenter(X);
 				shorohov.animation.play('Crying');
 
